@@ -1,9 +1,8 @@
 ---
 layout: post
-title: Coroutines and Rust
+title: Coroutines and Rust (Part 1)
 ---
 
-# Coroutines and Rust
 Anyone who has ever used the Lua, Python, Javascript, Ruby, or C# language has had a good chance of coming across some sort of `yield` operator which 1) suspends the state of a running function and 2) yields back a value to whoever the caller is. These "generators" or "coroutines" fairly often implement some kind of iterable interface so they can be used in for-loops. Here's a trivial generator in Python.
 
 ```python
@@ -18,13 +17,14 @@ Generators have the benefit of being extraordinarily straightforward to write an
 
 Many people are interested in bringing such a feature to Rust, so I think it's worth writing this post to outline some of the things that have been said so far, pitfalls, and directions for the future, as well as compare to Ecmascript's 6's generator design. This post is the first of many and is intended both as a detail heavy introduction to people who are only vaguely familiar with the discussion or have not heard of coroutines before, and also as a kind of summary of the discussion in the last two RFCs so as to provide a good bounding point for the future. (If you have read the current RFCs for this feature, you can probably skip the "First Attempt" section.)
 
-What this is not is: 
+What this is not is:
+
 - an RFC, or even a proto-RFC
 - an authoritative document in any way
 - even the best way to do any of this, as there are tradeoffs to every design decision
 - a short read
 
-## Prior Art
+# Prior Art
 The community has been very vigorous in this area and so there is a lot of acknowledgment to be had. Apologies if I have forgotten someone who deserves to be mentioned.
 
 There was a [huge issue in the Rust repo](https://github.com/rust-lang/rfcs/issues/1081) on Async IO as well as [an equally large issue on C# style yielding](https://github.com/rust-lang/rfcs/issues/388) which convinced a lot of people that we should have some kind of generator feature in Rust, be it sugar for a state machine or something more sophisticated. That led to erickt's very impressive [Stateful](https://github.com/erickt/stateful), a compiler plugin and library which allows you to write state machines using some macros. It gets you very far but is only meant as a temporary solution because this kind of feature deserves to be in the compiler proper. Nonetheless it laid the groundwork and was a great proof of concept.
@@ -33,7 +33,7 @@ There are currently two RFCs to this end, which I encourage you to read or skim 
 
 Lastly, [Eduard-Mihai Burtescu](https://github.com/eddyb) from the Rust compiler team has been invested and involved in this community-wide discussion since the very beginning and has been instrumental in this getting as far as it's gotten, as well as providing the useful perspective of someone who knows the compiler internals well. If you click on any of the links I've provided, you'll see his comments, advice, and direction throughout. 
 
-## Design Requirements
+# Design Requirements
 Any good generator design should satisfy the following requirements.
 
 * Allow one to yield values
@@ -54,7 +54,7 @@ Some optional requirements are
 * Have a robust and flexible set of "generator combinators" (for instance, imagine an `ignore_all` which takes a generator that yields `Y` and returns `R` and turns it into one that yields `()` and returns `R`). 
 * Reduce the amount of enums users have to write (this is vague; more on this in a bit)
 
-## First Attempt
+# First Attempt
 We start with a trait, because this is how we encode a uniform interface across a variety of types in Rust.
 
 ```rust
@@ -183,4 +183,4 @@ Thus a user who only knows about the `Future` trait and the `await!` macro is ab
 
 In general, this is the predicted usage pattern for generators: library writers will write generators and then write traits and macros which abstract over their usage. Library users will either use the preconfigured components or have the ability to make their own components by writing a generator that yields and returns the correct types.
 
-This is where the smooth sailing ends in the design.
+[This is where the smooth sailing ends in the design.](/2017/01/22/coroutines-and-rust-ii.html)

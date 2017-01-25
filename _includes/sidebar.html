@@ -5,7 +5,7 @@
 <!-- Toggleable sidebar -->
 <div class="sidebar" id="sidebar">
   <div class="sidebar-item">
-    <p>{{ site.description }}</p>
+    <p>{{ site.theme_credits }}</p>
   </div>
 
   <nav class="sidebar-nav">
@@ -25,14 +25,17 @@
       {% endif %}
     {% endfor %}
 
-    <a class="sidebar-nav-item" href="{{ site.github.repo }}/archive/v{{ site.version }}.zip">Download</a>
-    <a class="sidebar-nav-item" href="{{ site.github.repo }}">GitHub project</a>
-    <span class="sidebar-nav-item">Currently v{{ site.version }}</span>
+    <a class="sidebar-nav-item" href="http://users.rust-lang.org">Rust Forums</a>
+    <a class="sidebar-nav-item" href="http://lobste.rs">Lobsters</a>
+    <a class="sidebar-nav-item" href="http://propublica.org">ProPublica</a>
+    <a class="sidebar-nav-item" href="{{site.theme_site}}">Theme</a>
+    
   </nav>
 
   <div class="sidebar-item">
     <p>
-      &copy; {{ site.time | date: '%Y' }}. All rights reserved.
+      &copy; {{ site.time | date: '%Y' }}. All rights reserved. But what are rights? Do you actually have any? Who endows us with rights?
+      Do rights change over time?
     </p>
   </div>
 </div>
