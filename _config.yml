@@ -5,19 +5,18 @@
 
 # Setup
 title:               A Krevitch To Snork Your Flads
-tagline:         "Once upon a time, we weren't trendoids."
 url:                 ""
 baseurl:             ""
 paginate:            5
 github_username:     krstoff
 
-theme_credits: "Credit to Mark Otto for the wonderful Jekyll theme \"Lanyon\"."
+theme_credits: "Credit to Mark Otto for the Jekyll theme \"Lanyon\"."
 theme_site: https://github.com/poole/lanyon
 
 gems:
   - jekyll-feed
   - jekyll-relative-links
-  
+
 # Build Settings
 exclude:
   - Gemfile
