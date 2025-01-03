@@ -2,8 +2,23 @@
 layout: post
 title:  "Part 00: Preliminaries"
 ---
+# Writing an Orchestrator - Preliminaries
+Most datacenter applications are now structured as message-passing services, micro- or otherwise, delivered in containerized format. Those who aren't using developer-centric platforms like Heroku, Render, or [Fly.io](http://Fly.io), frequently employ a full-featured container orchestrator such as Kubernetes or Nomad to deploy, scale, and manage their workloads. Kubernetes in particular has sizable mindshare among cloud-native developers, in part because of its industry backing and a standardization effect, resulting in a thriving ecosystem around the technology.
 
-This project will make use of a lot of different technologies and those will be introduced over time. The course of development overall, however, will make use of several technologies immediately, and so we have to set up our development environment accordingly. You’ve probably used many of these tools already but they’re listed here just in case you haven’t. 
+But Kubernetes is big, and it's big because it was designed to accommodate a wide array of use-cases. The flexibility that made it so popular also makes it daunting for some people to learn. Immersed in its API, one might get the impression that this complexity is essential, but the core of container orchestration itself isn't really that complicated, and building one is a tractable mid-sized exercise for those with some time to kill.
+
+Well, I have some time. I'll be writing a container orchestrator, starting from containerd’s API, and summarizing my experience along the way, providing fully reproducible code. 
+
+My goal is:
+
+- a platform that covers the major aspects of container orchestration, such as resource-based scheduling, networking, service discovery, monitoring, configuration, and scaling
+- extensible and cloud-agnostic, suitable for both a datacenter cluster and a bundle of raspberry pis
+- reasonable for managing a cluster of twenty-five or more services, or a system with fifty to a hundred different developers
+- flexible enough to be the foundational layer of a bespoke, internal platform with specific security and networking requirements
+
+As an operations novice I expect to bang my head a lot, but I'll make and explain design choices along the way, and consult state of the art. I'll also make simplifying assumptions, like only utilizing Linux hosts, using IPv6 for networking, or using specific virtual machine capabilities that make VPC routing easy.
+
+This project will make use of many different technologies and those will be introduced over time. The course of development overall, however, will make use of several technologies immediately, and so we have to set up our development environment accordingly. You’ve probably used many of these tools already but they’re listed here just in case you haven’t. 
 
 ## Amazon Web Services
 
