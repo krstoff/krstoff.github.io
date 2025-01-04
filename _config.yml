@@ -9,6 +9,7 @@ url:                 ""
 baseurl:             ""
 paginate:            5
 github_username:     krstoff
+repository: krstoff/krstoff.github.io
 
 theme_credits: "Credit to Mark Otto for the Jekyll theme \"Lanyon\"."
 theme_site: https://github.com/poole/lanyon

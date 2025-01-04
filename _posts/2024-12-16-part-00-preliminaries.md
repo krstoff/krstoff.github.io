@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Part 00: Preliminaries"
+title:  "Writing an Orchestrator - Preliminaries"
 ---
-# Writing an Orchestrator - Preliminaries
-Most datacenter applications are now structured as message-passing services, micro- or otherwise, delivered in containerized format. Those who aren't using developer-centric platforms like Heroku, Render, or [Fly.io](http://Fly.io), frequently employ a full-featured container orchestrator such as Kubernetes or Nomad to deploy, scale, and manage their workloads. Kubernetes in particular has sizable mindshare among cloud-native developers, in part because of its industry backing and a standardization effect, resulting in a thriving ecosystem around the technology.
+
+Most datacenter applications are now structured as message-passing services, micro- or otherwise, delivered in containerized format. Those who aren't using developer-centric platforms like [Heroku](http://heroku.com), [Render](http://render.com), or [Fly.io](http://Fly.io), frequently employ a full-featured container orchestrator such as Kubernetes or Nomad to deploy, scale, and manage their workloads. Kubernetes in particular has sizable mindshare among cloud-native developers, in part because of its industry backing and a standardization effect, resulting in a thriving ecosystem around the technology.
 
 But Kubernetes is big, and it's big because it was designed to accommodate a wide array of use-cases. The flexibility that made it so popular also makes it daunting for some people to learn. Immersed in its API, one might get the impression that this complexity is essential, but the core of container orchestration itself isn't really that complicated, and building one is a tractable mid-sized exercise for those with some time to kill.
 
@@ -18,7 +18,7 @@ My goal is:
 
 As an operations novice I expect to bang my head a lot, but I'll make and explain design choices along the way, and consult state of the art. I'll also make simplifying assumptions, like only utilizing Linux hosts, using IPv6 for networking, or using specific virtual machine capabilities that make VPC routing easy.
 
-This project will make use of many different technologies and those will be introduced over time. The course of development overall, however, will make use of several technologies immediately, and so we have to set up our development environment accordingly. You’ve probably used many of these tools already but they’re listed here just in case you haven’t. 
+This project will make use of many different technologies and those will be introduced over time. The course of development overall, however, will make use of several technologies immediately, and so if you're following along, you should set up your development environment accordingly. You’ve probably used many of these tools already but they’re listed here just in case you haven’t. 
 
 ## Amazon Web Services
 
@@ -28,7 +28,7 @@ You’re going to want to run your cluster somewhere and this is as good a place
 
 ## Terraform
 
-We’ll embrace Infrastructure-As-Code fully for two reasons. The first is that this is just good practice. The second is that to have full trust in the configuration of our infrastructure we need to be able to fearlessly destroy and recreate it, over and over again. We can try things out quickly by using the AWS console, ssh-ing into our instances, scp-ing updated software, etc., but we may end up missing something when we commit this configuration to code. We can save ourselves the headache by making sure our set-up is reproducible, immediately, each and every time.
+We’ll follow good practice and embrace Infrastructure-As-Code fully. To have full trust in the configuration of our infrastructure we need to be able to fearlessly destroy and recreate it, over and over again. We could try things out quickly by using the AWS console, ssh-ing into our instances, scp-ing updated software, etc., but we may end up missing something when we commit this configuration to code. We can save ourselves the headache by making sure our set-up is reproducible, immediately, each and every time.
 
 - Download terraform
 - Configure it to use the credentials associated with your AWS account
@@ -38,17 +38,13 @@ Some people prefer something like Pulumi to Terraform so that they can use their
 
 ## Rust
 
-Rust is a systems programming language like C or C++. Not only is it memory-safe and thread-safe by default, but it is also superb at describing and enforcing system invariants overall, such as protocols, exhaustive case-handling, and resource destruction. Used judiciously, macros also enable the creation of excellent Domain Specific Languages, or generate enormous amounts of boilerplate for you, allowing you to focus on the actual task instead of doing tedious bookkeeping. 
+Rust is a systems programming language like C or C++. Not only is it memory-safe and thread-safe by default, but it is also superb at describing and enforcing system invariants overall, such as protocols, exhaustive case-handling, and resource destruction. Used judiciously, macros also enable the creation of excellent Domain Specific Languages, or generate tedious boilerplate for you. 
 
-The de facto default language for back-end networked services in the container orchestration world is Go. Plugins for Kubernetes and containerd are written in Go. CNCF projects frequently support Go first. Go is a first-class language at Google and the crossover between its software developers and contributors to CNCF projects is very high. But the truth is I just don’t like Go. It is a mediocre programming language on an amazing runtime. More importantly I am not good enough at Go to feel secure in the code that I write. Its type system lacks in certain regards where I don’t always know if I’ve handled all the various errors that can arise from an API. Error-handling is verbose and I have returned a nil in the wrong place more than one time. I feel safer with the code that I write in Rust. 
+The de facto default language for back-end networked services in the container orchestration world is Go. Plugins for Kubernetes and containerd are written in Go. CNCF projects frequently support Go first. Go is a first-class language at Google and the crossover between its software developers and contributors to CNCF projects is very high. But the truth is I just don’t like Go. My personal opinion is that it's an unpleasant programming language on an amazing runtime. More importantly I am not good enough at Go to feel secure in the code that I write. Its type system lacks in certain regards where I don’t always know if I’ve handled all the various errors that can arise from an API. Error-handling is verbose and I have returned a nil in the wrong place more than one time. I feel safer with the code that I write in Rust. 
 
 - Download rustup if you don’t already have it.
 - Work through the tutorial if you’ve never used Rust before
 - Make sure your environment is set correctly so that you can actually build crates
-
-## Git
-
-I don’t even need to explain this one.
 
 ## Packer
 
@@ -63,7 +59,7 @@ Git can’t handle version controlling our AMIs. Luckily AWS S3 supports differe
 
 ## Docker
 
-Naturally we will be building container images so I will be using docker to do this. If you want to use Podman or Buildah then by all means, do that. The important part is that you can build and upload OCI Images that will be pulled by our cluster.
+Naturally we will be building container images, so I'm reaching straight for Docker. If you want to use Podman or Buildah, feel free. The important part is that you can build and upload OCI Images that will be pulled by our cluster.
 
 ## POSIX
 
