@@ -13,6 +13,10 @@
  * https://github.com/poole/lanyon.
  */
 
+ /* Local overrides - Kristoffer */
+ p {
+  text-align: justify;
+ }
 
 /*
  * Contents
