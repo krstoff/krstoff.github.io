@@ -18,6 +18,10 @@
   text-align: justify;
  }
 
+ ul {
+  list-style-type: square;
+ }
+
 /*
  * Contents
  *
@@ -45,7 +49,7 @@ body {
 }
 
 html {
-  font-family: "PT Serif", Georgia, "Times New Roman", serif;
+  font-family: -apple-system,BlinkMacSystemFont,segoe ui,Roboto,Oxygen-Sans,Ubuntu,Cantarell,helvetica neue,Helvetica,游ゴシック,pingfang sc,STXihei,华文细黑,microsoft yahei,微软雅黑,SimSun,宋体,Heiti,黑体,sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -56,7 +60,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 code {
-  font-family: Consolas, monospace
+  font-family: Consolas, monospace;
+  color: #61a9bf;
 }
 
 /*
@@ -89,7 +94,7 @@ code {
 }
 @media (min-width: 56em) {
   .container {
-    max-width: 38rem;
+    max-width: 46rem;
   }
 }
 
@@ -512,12 +517,12 @@ a.pagination-item:hover {
 .theme-base-0d .sidebar,
 .theme-base-0d .sidebar-toggle:active,
 .theme-base-0d #sidebar-checkbox:checked ~ .sidebar-toggle {
-  background-color: #6a9fb5;
+  background-color: #325861;
 }
 .theme-base-0d .container a,
 .theme-base-0d .sidebar-toggle,
 .theme-base-0d .related-posts li a:hover {
-  color: #6a9fb5;
+  color: #5fa1b0;
 }
 
 /* Magenta */
